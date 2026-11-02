@@ -1,0 +1,256 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ligne lessive poudre</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500&display=swap">
+<style>
+/* Layout: plant schematic on the left like a control-room mimic panel, explanation panel on the right, ingredient register below */
+:root{
+  --bg:#EEF0F1; --panel:#FFFFFF; --ink:#1E2328; --ink-2:#56606A; --line:#D3D8DC;
+  --safety:#E2B419; --safety-ink:#5A4300; --safety-soft:#FBF1CC;
+  --sel:#185FA5;
+  --f-display:"Barlow Condensed","Noto Sans SC","Arial Narrow",sans-serif;
+  --f-body:"Barlow","Noto Sans SC",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15191C; --panel:#1E2327; --ink:#E8EBED; --ink-2:#9BA5AE; --line:#343B41;
+  --safety:#F0C93A; --safety-ink:#F7DD7C; --safety-soft:#3A3214; --sel:#85B7EB; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#15191C; --panel:#1E2327; --ink:#E8EBED; --ink-2:#9BA5AE; --line:#343B41;
+  --safety:#F0C93A; --safety-ink:#F7DD7C; --safety-soft:#3A3214; --sel:#85B7EB; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 20px;border-bottom:3px solid var(--safety);padding-bottom:12px}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(28px,4vw,40px);line-height:1.05;margin:0;letter-spacing:.01em;text-wrap:balance}
+.sub{color:var(--ink-2);margin:4px 0 0;font-size:15px}
+.ctrls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--panel)}
+.seg button{border:0;background:transparent;color:var(--ink-2);font:500 14px var(--f-mono);padding:7px 12px;cursor:pointer;letter-spacing:.06em}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--safety);color:#2A2000}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);font:500 14px var(--f-body);padding:7px 14px;border-radius:6px;cursor:pointer}
+.btn:focus-visible,.seg button:focus-visible,.eq:focus-visible{outline:2px solid var(--sel);outline-offset:2px}
+.main{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+@media(min-width:900px){.main{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}.side{position:sticky;top:16px;align-self:start}}
+.plant{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.plant svg{display:block;width:100%;max-width:560px;margin:0 auto;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;margin-top:10px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%;border:1px solid #5F5E5A;display:inline-block}
+.side{min-width:0;display:flex;flex-direction:column;gap:16px}
+.det{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;min-height:180px}
+.det h2{font-family:var(--f-display);font-weight:600;font-size:26px;line-height:1.1;margin:0 0 8px;text-wrap:balance}
+.tag{display:inline-block;font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;margin-bottom:10px;background:var(--safety-soft);color:var(--safety-ink)}
+.tag.c{background:#E1F5EE;color:#085041}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag.c{background:#0F3B2E;color:#9FE1CB}}
+:root[data-theme="dark"] .tag.c{background:#0F3B2E;color:#9FE1CB}
+.det p{margin:0;max-width:62ch}
+.det ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-width:62ch}
+.hint{color:var(--ink-2)}
+.note{border-left:3px solid var(--safety);padding:8px 14px;font-size:14px;color:var(--ink-2);background:var(--panel);border-radius:0}
+h3{font-family:var(--f-display);font-weight:600;font-size:24px;margin:8px 0 0}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
+th{text-align:left;font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding:10px 14px;border-bottom:1px solid var(--line)}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+.cn{font-family:"Noto Sans SC",var(--f-body);font-weight:500;font-size:15px}
+.py{display:block;color:var(--ink-2);font-size:12px;font-style:italic}
+.fm{font-family:var(--f-mono);font-size:13px;white-space:nowrap}
+.eq{cursor:pointer;transition:opacity .2s}
+.lbl{fill:var(--ink-2);font:400 12px var(--f-body)}
+.lblh{fill:var(--ink);font:500 14px var(--f-body)}
+.lbla{fill:var(--sel);font:500 12px var(--f-body)}
+.inner{font:500 12px var(--f-body)}
+@media (prefers-reduced-motion: reduce){.eq{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1 id="t-title">Ligne lessive poudre</h1>
+      <p class="sub" id="t-sub"></p>
+    </div>
+    <div class="ctrls">
+      <div class="seg" role="group" aria-label="Langue / Language / 语言">
+        <button id="l-fr" data-l="fr" aria-pressed="true">FR</button>
+        <button id="l-en" data-l="en" aria-pressed="false">EN</button>
+        <button id="l-cn" data-l="cn" aria-pressed="false">中文</button>
+      </div>
+      <button class="btn" id="play"></button>
+    </div>
+  </header>
+
+  <div class="main">
+    <section class="plant">
+      <div id="svgwrap"></div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <aside class="side">
+      <div class="det" id="det" aria-live="polite"></div>
+      <div class="note" id="note"></div>
+    </aside>
+  </div>
+
+  <h3 id="t-gloss"></h3>
+  <div class="tbl"><table><thead><tr id="thead"></tr></thead><tbody id="tbody"></tbody></table></div>
+</div>
+
+<script>
+const T={
+ title:{fr:"Ligne lessive poudre",en:"Powder detergent line",cn:"洗衣粉生产线"},
+ sub:{fr:"Atomisation et post-dosage · touche un équipement",en:"Spray drying and post-dosing · tap any equipment",cn:"喷粉塔与后配料 · 点击设备查看说明"},
+ play:{fr:"Lancer le flux",en:"Run the flow",cn:"播放物流"},
+ pause:{fr:"Pause",en:"Pause",cn:"暂停"},
+ hint:{fr:"Touche un équipement pour voir ce qui s'y passe et le rôle de chaque composé.",en:"Tap a piece of equipment to see what happens there and what each ingredient does.",cn:"点击设备，查看工艺说明及各原料作用。"},
+ batch:{fr:"Batch",en:"Batch",cn:"间歇"}, cont:{fr:"Continu",en:"Continuous",cn:"连续"},
+ gloss:{fr:"Composés et rôles",en:"Ingredients and roles",cn:"原料及作用"},
+ th:{fr:["中文 · pinyin","Formule","Nom","Rôle"],en:["中文 · pinyin","Formula","Name","Role"],cn:["中文 · 拼音","化学式","名称","作用"]},
+ note:{fr:"UE : phosphore limité à 0,5 g par dose standard dans les lessives grand public (règlement Détergents). Les formules destinées à l'Europe remplacent le STPP par zéolite + carbonate + polymères.",
+       en:"EU: phosphorus is capped at 0.5 g per standard dose in consumer laundry detergents (Detergents Regulation). Formulas for Europe replace STPP with zeolite, soda ash and polymers.",
+       cn:"欧盟：家用洗衣粉每标准剂量含磷不得超过0.5克（洗涤剂法规）。出口欧洲的配方用沸石、纯碱和聚合物替代五钠。"},
+ flow:{fr:["Pâte","Air chaud","Poudre","Enzymes","Parfum"],en:["Slurry","Hot air","Powder","Enzymes","Fragrance"],cn:["料浆","热风","粉料","酶粒","香精"]},
+ L:{
+  raw:{fr:"Matières premières",en:"Raw materials",cn:"原料"},
+  pump:{fr:"Pompe HP",en:"HP pump",cn:"高压泵"},
+  air:{fr:"Air chaud",en:"Hot air",cn:"热风"},
+  lift:{fr:"Airlift",en:"Airlift",cn:"气力输送"},
+  post:{fr:"Post-dosage",en:"Post-dosing",cn:"后配料"},
+  screw:{fr:"Vis de dosage",en:"Dosing screw",cn:"螺旋输送"},
+  perf:{fr:"Parfums",en:"Fragrances",cn:"香精"},
+  pack:{fr:"Conditionnement",en:"Packing",cn:"包装"},
+  crut:{fr:"Crutcher",en:"Crutcher",cn:"配浆釜"},
+  tower:{fr:["Tour","d'atomisation"],en:["Spray","tower"],cn:["喷粉塔"]},
+  silo:{fr:"Silo",en:"Silo",cn:"料仓"},
+  mix:{fr:"Mélangeur",en:"Mixer",cn:"混合机"}
+ },
+ roles:{fr:["Adoucit","Alcalinité","Charge","Détache"],en:["Softener","Alkalinity","Filler","Anti-stain"],cn:["软化水","碱性","填充","去污渍"]}
+};
+const MODE=[null,'b','c','c','c','c','b','b','b','c'];
+const D={
+ fr:[
+  ["Matières premières","<p>Big bags et sacs de 25 kg pour les poudres (sulfate, carbonate, STPP, zéolite), fûts et cuves pour les liquides (acide LAS, soude, silicate, parfums).</p>"],
+  ["Crutcher · préparation de la pâte","<p style='margin-bottom:8px'>Pâte préparée par recette, 60-70 % de matière sèche, 60-80 °C, puis maturation et filtration.</p><ul><li>Acide LAS : tensioactif principal, décroche graisse et salissures</li><li>Soude : neutralise l'acide LAS en LAS sodique (réaction exothermique)</li><li>Silicate de sodium : protège le tambour de la machine de la corrosion, rend le grain plus solide</li><li>Zéolite ou STPP : captent le calcaire de l'eau</li><li>CMC : empêche la saleté de se redéposer sur le linge</li><li>Azurant optique : le blanc paraît plus blanc (fluorescence UV)</li></ul>"],
+  ["Pompe haute pression","<p>Pompe à pistons qui monte la pâte à 60-80 bar vers les buses en haut de la tour. C'est la grosse machine bleue devant la vitre de la salle de contrôle.</p>"],
+  ["Tour d'atomisation","<p>La pâte est pulvérisée en haut, l'air chaud monte à contre-courant : les gouttes sèchent en grains creux, légers et solubles. Les vibreurs bleus sur le cône décollent la poudre des parois.</p>"],
+  ["Générateur d'air chaud","<p>Brûleur qui envoie l'air à 300-400 °C dans le bas de la tour. Les fumées repartent par le haut vers cyclones et filtres à manches.</p>"],
+  ["Airlift et silo","<p>La poudre sort à 3-6 % d'humidité, est refroidie et remontée par transport pneumatique, tamisée, puis stockée en silo pour se stabiliser.</p>"],
+  ["Post-dosage","<ul><li>STPP (五钠) : séquestre calcium et magnésium, adoucit l'eau pour que le tensioactif travaille</li><li>Carbonate (纯碱) : monte le pH, aide à saponifier les graisses, adoucit par précipitation</li><li>Sulfate (元明粉) : charge inerte, ajuste densité et fluidité, réduit le coût</li><li>Grains (粒子) : enzymes (protéase, amylase, lipase) contre les taches organiques, ou speckles colorés</li></ul>"],
+  ["Mélangeur","<p>Tambour rotatif qui homogénéise poudre de base et ajouts. Le parfum y est pulvérisé en dernier.</p>"],
+  ["Parfums","<p>Donnent l'odeur au produit et au linge, masquent l'odeur des matières premières. Dosés sur la balance 香精秤, ajoutés à la fin car volatils et sensibles à la chaleur.</p>"],
+  ["Conditionnement","<p>Contrôle qualité (densité apparente, humidité, matière active, granulométrie), puis ensachage et palettisation.</p>"]],
+ en:[
+  ["Raw materials","<p>Bulk bags and 25 kg sacks for powders (sulfate, soda ash, STPP, zeolite); drums and tanks for liquids (LAS acid, caustic soda, silicate, fragrances).</p>"],
+  ["Crutcher · slurry making","<p style='margin-bottom:8px'>Slurry made by recipe, 60-70 % solids, 60-80 °C, then aged and filtered.</p><ul><li>LAS acid: main surfactant, lifts grease and soil</li><li>Caustic soda: neutralises LAS acid into sodium LAS (exothermic)</li><li>Sodium silicate: protects the washing-machine drum from corrosion, strengthens the granule</li><li>Zeolite or STPP: bind water hardness</li><li>CMC: stops soil redepositing on fabric</li><li>Optical brightener: whites look whiter (UV fluorescence)</li></ul>"],
+  ["High-pressure pump","<p>Plunger pump raising the slurry to 60-80 bar towards the nozzles at the top of the tower. It's the big blue machine in front of the control-room window.</p>"],
+  ["Spray-drying tower","<p>Slurry is sprayed at the top while hot air rises counter-current: droplets dry into hollow, light, soluble beads. The blue vibrators on the cone keep powder from sticking to the walls.</p>"],
+  ["Hot-air generator","<p>Burner feeding 300-400 °C air into the bottom of the tower. Exhaust leaves at the top through cyclones and bag filters.</p>"],
+  ["Airlift and silo","<p>Powder leaves at 3-6 % moisture, is cooled and lifted by pneumatic conveying, sieved, then stored in a silo to stabilise.</p>"],
+  ["Post-dosing","<ul><li>STPP (五钠): sequesters calcium and magnesium so the surfactant can work</li><li>Soda ash (纯碱): raises pH, helps saponify fats, softens by precipitation</li><li>Sodium sulfate (元明粉): inert filler, adjusts density and flow, lowers cost</li><li>Granules (粒子): enzymes (protease, amylase, lipase) for organic stains, or coloured speckles</li></ul>"],
+  ["Mixer","<p>Rotating drum blending base powder and post-added materials. Fragrance is sprayed in last.</p>"],
+  ["Fragrances","<p>Give the product and laundry their scent and mask raw-material odours. Weighed on the 香精秤 scale and added last because they are volatile and heat-sensitive.</p>"],
+  ["Packing","<p>Quality control (bulk density, moisture, active matter, particle size), then bagging and palletising.</p>"]],
+ cn:[
+  ["原料","<p>粉料用吨袋和25公斤袋包装（元明粉、纯碱、五钠、沸石），液料用桶和储罐（磺酸、烧碱、泡花碱、香精）。</p>"],
+  ["配浆釜 · 配制料浆","<p style='margin-bottom:8px'>按配方配浆，固含量60-70%，温度60-80°C，然后老化、过滤。</p><ul><li>磺酸（LAS）：主要表面活性剂，去油去污</li><li>烧碱：中和磺酸生成LAS钠盐（放热反应）</li><li>泡花碱（硅酸钠）：防止洗衣机滚筒腐蚀，增加颗粒强度</li><li>沸石或五钠：螯合钙镁离子，软化水</li><li>CMC：防止污垢再沉积到衣物上</li><li>荧光增白剂：使白色衣物更白（紫外荧光）</li></ul>"],
+  ["高压泵","<p>柱塞泵将料浆加压至60-80 bar，送至塔顶喷枪。就是控制室玻璃窗前那台蓝色大设备。</p>"],
+  ["喷粉塔","<p>料浆从塔顶喷出，热风逆流上升，液滴干燥成空心、轻质、易溶的颗粒。锥体上的蓝色振动器防止粉料粘壁。</p>"],
+  ["热风炉","<p>热风炉将300-400°C热风送入塔底。尾气从塔顶经旋风分离器和布袋除尘器排出。</p>"],
+  ["气力输送与料仓","<p>基粉出塔水分3-6%，经气力输送冷却提升、筛分后存入料仓老化。</p>"],
+  ["后配料","<ul><li>五钠（三聚磷酸钠）：螯合钙镁离子，软化水，帮助表面活性剂发挥作用</li><li>纯碱：提高pH值，皂化油脂，沉淀软化</li><li>元明粉：惰性填充剂，调节堆积密度和流动性，降低成本</li><li>粒子：酶制剂（蛋白酶、淀粉酶、脂肪酶）去除有机污渍，或彩色颗粒</li></ul>"],
+  ["混合机","<p>旋转滚筒混合基粉与后配料，最后喷入香精。</p>"],
+  ["香精","<p>赋予产品和衣物香味，掩盖原料气味。经香精秤计量，因易挥发、怕热，最后添加。</p>"],
+  ["包装","<p>质检（堆积密度、水分、活性物含量、粒度），然后包装、码垛。</p>"]]
+};
+const G=[
+ ["磺酸","huángsuān","LAS (C₁₀₋₁₃)",["Acide LAS","LAS acid","烷基苯磺酸"],["Tensioactif anionique, enlève graisse et salissures","Anionic surfactant, removes grease and soil","阴离子表面活性剂，去油去污"]],
+ ["α-烯基磺酸钠","α-xījī huángsuānnà","AOS",["Alpha-oléfine sulfonate","Alpha olefin sulfonate","AOS"],["Tensioactif d'appoint, bonne mousse, tolère l'eau dure","Co-surfactant, good foam, hard-water tolerant","辅助表面活性剂，泡沫好，耐硬水"]],
+ ["烧碱","shāojiǎn","NaOH",["Soude caustique","Caustic soda","氢氧化钠"],["Neutralise l'acide LAS","Neutralises LAS acid","中和磺酸"]],
+ ["泡花碱","pàohuājiǎn","Na₂O·nSiO₂",["Silicate de sodium","Sodium silicate","硅酸钠"],["Anticorrosion, liant du grain","Anti-corrosion, granule binder","防腐蚀，颗粒粘结"]],
+ ["五钠","wǔnà","Na₅P₃O₁₀",["Tripolyphosphate (STPP)","Sodium tripolyphosphate","三聚磷酸钠"],["Séquestre Ca/Mg, adoucit l'eau","Sequesters Ca/Mg, softens water","螯合钙镁，软化水"]],
+ ["4A沸石","4A fèishí","Na₁₂(AlO₂)₁₂(SiO₂)₁₂",["Zéolite 4A","Zeolite 4A","4A沸石"],["Remplace le STPP dans les formules sans phosphate","Replaces STPP in phosphate-free formulas","无磷配方中替代五钠"]],
+ ["纯碱","chúnjiǎn","Na₂CO₃",["Carbonate de sodium","Soda ash","碳酸钠"],["Alcalinité, saponifie les graisses","Alkalinity, saponifies fats","提供碱性，皂化油脂"]],
+ ["元明粉","yuánmíngfěn","Na₂SO₄",["Sulfate de sodium","Sodium sulfate","无水硫酸钠"],["Charge, ajuste densité et fluidité","Filler, adjusts density and flow","填充剂，调节密度和流动性"]],
+ ["羧甲基纤维素钠","suōjiǎjī xiānwéisù nà","CMC",["Carboxyméthylcellulose","Carboxymethyl cellulose","羧甲基纤维素钠"],["Anti-redéposition des salissures","Anti-soil-redeposition","抗污垢再沉积"]],
+ ["荧光增白剂","yíngguāng zēngbáijì","OBA",["Azurant optique","Optical brightener","荧光增白剂"],["Blanc plus blanc (fluorescence)","Whiter whites (fluorescence)","增白（荧光）"]],
+ ["酶制剂","méi zhìjì","—",["Enzymes","Enzymes","酶制剂"],["Dégradent taches de protéines, amidon, graisses","Break down protein, starch and fat stains","分解蛋白、淀粉、油脂污渍"]],
+ ["香精","xiāngjīng","—",["Parfum","Fragrance","香精"],["Odeur du produit et du linge","Product and laundry scent","赋予产品及衣物香味"]]
+];
+const LI={fr:0,en:1,cn:2};
+
+const P=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+const ST='stroke="rgba(0,0,0,.18)" stroke-width="0.5"';
+function cube(cx,cy,a,b,h,c){const p0=[cx,cy],p1=[cx+a*.866,cy+a*.5],p2=[cx+(a-b)*.866,cy+(a+b)*.5],p3=[cx-b*.866,cy+b*.5],d=q=>[q[0],q[1]+h];
+return `<polygon points="${P([p3,p2,d(p2),d(p3)])}" fill="${c[1]}" ${ST}/><polygon points="${P([p2,p1,d(p1),d(p2)])}" fill="${c[2]}" ${ST}/><polygon points="${P([p0,p1,p2,p3])}" fill="${c[0]}" ${ST}/>`;}
+function cyl(cx,y,r,h,c){const ry=r*.32;
+return `<path d="M${cx-r} ${y} L${cx-r} ${y+h} A${r} ${ry} 0 0 0 ${cx+r} ${y+h} L${cx+r} ${y} Z" fill="${c[1]}" ${ST}/><path d="M${cx} ${y} L${cx} ${y+h+ry} A${r} ${ry} 0 0 0 ${cx+r} ${y+h} L${cx+r} ${y} Z" fill="${c[2]}"/><ellipse cx="${cx}" cy="${y}" rx="${r}" ry="${ry}" fill="${c[0]}" ${ST}/>`;}
+function cone(cx,y,r,r2,h,c){return `<polygon points="${P([[cx-r,y],[cx,y],[cx,y+h],[cx-r2,y+h]])}" fill="${c[1]}"/><polygon points="${P([[cx,y],[cx+r,y],[cx+r2,y+h],[cx,y+h]])}" fill="${c[2]}"/>`;}
+function hop(cx,cy,s,y2,s2,c){const Q=(x,y,k)=>[[x,y-k*.5],[x+k*.866,y],[x,y+k*.5],[x-k*.866,y]];const t=Q(cx,cy,s),b=Q(cx,y2,s2);
+return `<polygon points="${P([t[3],t[2],b[2],b[3]])}" fill="${c[1]}" ${ST}/><polygon points="${P([t[2],t[1],b[1],b[2]])}" fill="${c[2]}" ${ST}/><polygon points="${P(t)}" fill="#EEE9DD" ${ST}/>`;}
+const Y=['#F6DD7E','#E9C547','#C9A532'],S=['#E4E7EA','#C3C8CD','#9FA5AB'],W=['#FAF8F3','#E6E2D8','#CDC8BC'],B=['#85B7EB','#378ADD','#185FA5'],C=['#F0997B','#D85A30','#993C1D'],GY=['#B4B2A9','#888780','#5F5E5A'],GR=['#C0DD97','#97C459','#639922'];
+const HX=[35,100,165,230];
+const paths={cr:'M65 196 L65 230',paste:'M78 250 L140 250 L140 28 L200 28 L200 36',air:'M314 188 L246 188',lift:'M200 278 L200 300 L270 300 L270 222 L320 222 L320 230',silo:'M320 305 L320 442',f1:`M${HX[0]} 424 L${HX[0]} 442`,f2:`M${HX[1]} 424 L${HX[1]} 442`,f3:`M${HX[2]} 424 L${HX[2]} 442`,f4:`M${HX[3]} 424 L${HX[3]} 442`,drop:'M150 454 L150 494',perf:'M345 512 L345 530 L256 530',out:'M200 546 L200 602'};
+const FC={paste:'#D3C49A',air:'#FAC775',pow:'#F1EFE8',enz:'#97C459',perf:'#ED93B1'};
+const flows=[['cr',FC.paste,1.2],['paste',FC.paste,3],['air',FC.air,1.2],['lift',FC.pow,2.2],['silo',FC.pow,2],['f1',FC.pow,.8],['f2',FC.pow,.8],['f3',FC.pow,.8],['f4',FC.enz,.8],['scr',FC.pow,2.5],['drop',FC.pow,.8],['perf',FC.perf,1.6],['out',FC.pow,1.2]];
+
+let lang='fr',cur=-1,on=false;
+try{const s=localStorage.getItem('lessive-lang');if(s&&LI[s]!==undefined)lang=s;}catch(e){}
+
+function txt(x,y,s,cls,anchor){return `<text class="${cls}" x="${x}" y="${y}" text-anchor="${anchor||'middle'}" dominant-baseline="central">${s}</text>`;}
+function build(){
+ const L=T.L,l=lang;
+ let s=`<svg viewBox="0 0 380 650" role="img" aria-label="${T.title[l]}">`;
+ for(const k in paths){if(k==='air')continue;s+=`<path id="p_${k}" d="${paths[k]}" fill="none" stroke="#8A9097" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;}
+ s+=`<path id="p_air" d="${paths.air}" fill="none" stroke="#D85A30" stroke-width="6" stroke-linecap="round"/><path d="M285 516 L285 530 M315 516 L315 530" fill="none" stroke="#8A9097" stroke-width="3"/><path id="p_scr" d="M330 448 L150 448" fill="none" stroke="none"/>`;
+ s+=`<line x1="40" y1="614" x2="340" y2="614" stroke="#5F5E5A" stroke-width="3"/>`;for(let x=50;x<=330;x+=28)s+=`<circle cx="${x}" cy="620" r="3" fill="#888780"/>`;
+ const g=(i,inner)=>`<g class="eq" data-i="${i}" tabindex="0" role="button" aria-label="${D[l][i][0]}">${inner}</g>`;
+ s+=g(0,cube(40,25,24,24,22,W)+cube(85,32,24,24,22,W));
+ s+=g(1,cyl(65,130,32,55,S)+cube(65,108,14,14,12,GY)+`<text class="inner" x="65" y="162" text-anchor="middle" dominant-baseline="central" fill="#2C2C2A">${L.crut[l]}</text>`);
+ s+=g(2,cube(65,228,20,20,16,B));
+ const tw=L.tower[l];
+ s+=g(3,cone(200,210,44,7,65,Y)+cyl(200,45,44,165,Y)+`<circle cx="176" cy="238" r="4.5" fill="#185FA5"/><circle cx="224" cy="238" r="4.5" fill="#185FA5"/>`+
+   (tw.length===2?`<text class="inner" x="200" y="118" text-anchor="middle" dominant-baseline="central" fill="#412402">${tw[0]}</text><text class="inner" x="200" y="134" text-anchor="middle" dominant-baseline="central" fill="#412402">${tw[1]}</text>`:`<text class="inner" x="200" y="126" text-anchor="middle" dominant-baseline="central" fill="#412402">${tw[0]}</text>`));
+ s+=g(4,cube(330,160,20,20,18,C));
+ s+=g(5,cone(320,275,22,5,30,S)+cyl(320,235,22,40,S)+`<text class="inner" x="320" y="258" text-anchor="middle" dominant-baseline="central" fill="#2C2C2A">${L.silo[l]}</text>`);
+ s+=g(6,HX.map(x=>hop(x,375,24,420,7,S)).join('')+`<rect x="20" y="442" width="310" height="12" rx="6" fill="#E9C547" stroke="#C9A532" stroke-width="0.5"/>`+cube(350,434,18,18,14,GY));
+ s+=g(7,`<rect x="120" y="494" width="130" height="52" fill="#E9C547"/><rect x="120" y="494" width="130" height="14" fill="#F6DD7E"/><rect x="120" y="532" width="130" height="14" fill="#C9A532"/><path d="M250 494 A9 26 0 0 1 250 546 Z" fill="#C9A532"/><ellipse cx="120" cy="520" rx="9" ry="26" fill="#BA9B2E" ${ST}/><text class="inner" x="188" y="520" text-anchor="middle" dominant-baseline="central" fill="#412402">${L.mix[l]}</text>`);
+ s+=g(8,cyl(285,482,11,26,S)+cyl(315,482,11,26,S)+cyl(345,482,11,26,S));
+ s+=g(9,cube(110,578,16,16,18,C)+cube(155,578,16,16,18,B)+cube(245,578,16,16,18,GR)+cube(290,578,16,16,18,Y));
+ s+=txt(62,96,L.raw[l],'lbl')+txt(65,280,L.pump[l],'lbl')+txt(330,148,L.air[l],'lbl')+txt(235,288,L.lift[l],'lbl')+txt(24,472,L.screw[l],'lbl','start')+txt(315,466,L.perf[l],'lbl')+txt(190,640,L.pack[l],'lbl');
+ const H=[["五钠","STPP"],["纯碱","Na₂CO₃"],["元明粉","Na₂SO₄"],["粒子",lang==='cn'?"酶":"Enzymes"]];
+ H.forEach((h,i)=>{s+=txt(HX[i],316,h[0],'lblh')+txt(HX[i],331,h[1],'lbl')+txt(HX[i],346,T.roles[l][i],'lbla');});
+ s+=`<g id="fx"></g></svg>`;
+ document.getElementById('svgwrap').innerHTML=s;
+ document.querySelectorAll('.eq').forEach(e=>{const i=+e.dataset.i;e.addEventListener('click',()=>sel(i));e.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();sel(i);}});});
+ if(cur>=0)sel(cur);
+ if(on)startFx();
+}
+function sel(i){cur=i;document.querySelectorAll('.eq').forEach(e=>e.style.opacity=(+e.dataset.i===i)?'1':'0.35');
+ const d=D[lang][i],m=MODE[i];
+ document.getElementById('det').innerHTML=`<h2>${d[0]}</h2>${m?`<span class="tag ${m==='c'?'c':''}">${m==='b'?T.batch[lang]:T.cont[lang]}</span>`:''}${d[1]}`;}
+function startFx(){let h='';flows.forEach(f=>{for(let k=0;k<3;k++)h+=`<circle r="3" fill="${f[1]}" stroke="#5F5E5A" stroke-width="0.5"><animateMotion dur="${f[2]}s" begin="${(k*f[2]/3).toFixed(2)}s" repeatCount="indefinite"><mpath href="#p_${f[0]}"/></animateMotion></circle>`;});document.getElementById('fx').innerHTML=h;}
+function playLabel(){document.getElementById('play').innerHTML=(on?'<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/></svg>':'<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1 L11 6 L2 11 Z" fill="currentColor"/></svg>')+(on?T.pause[lang]:T.play[lang]);}
+function render(){
+ document.documentElement.lang=lang==='cn'?'zh-CN':lang;
+ document.getElementById('t-title').textContent=T.title[lang];
+ document.getElementById('t-sub').textContent=T.sub[lang];
+ document.getElementById('t-gloss').textContent=T.gloss[lang];
+ document.getElementById('note').textContent=T.note[lang];
+ document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===lang?'true':'false'));
+ const cols=[FC.paste,FC.air,FC.pow,FC.enz,FC.perf];
+ document.getElementById('legend').innerHTML=T.flow[lang].map((n,i)=>`<span><i class="dot" style="background:${cols[i]}"></i>${n}</span>`).join('');
+ document.getElementById('thead').innerHTML=T.th[lang].map(h=>`<th>${h}</th>`).join('');
+ const k=LI[lang];
+ document.getElementById('tbody').innerHTML=G.map(r=>`<tr><td><span class="cn">${r[0]}</span><span class="py">${r[1]}</span></td><td class="fm">${r[2]}</td><td>${r[3][k]}</td><td>${r[4][k]}</td></tr>`).join('');
+ if(cur<0)document.getElementById('det').innerHTML=`<p class="hint">${T.hint[lang]}</p>`;
+ playLabel();build();
+}
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.l;try{localStorage.setItem('lessive-lang',lang);}catch(e){}render();}));
+document.getElementById('play').addEventListener('click',()=>{on=!on;if(on)startFx();else document.getElementById('fx').innerHTML='';playLabel();});
+render();
+</script>
+
+</body></html>
